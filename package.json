@@ -1,0 +1,45 @@
+{
+  "name": "idb",
+  "version": "0.0.0",
+  "description": "IndexedDB wrapper providing promise support",
+  "main": "dist/idb.js",
+  "dependencies": {
+    "bluebird": "^1.2.4"
+  },
+  "devDependencies": {
+    "browserify": "^3.46.0",
+    "gulp": "^3.6.2",
+    "gulp-browserify": "^0.5.0",
+    "gulp-jshint": "^1.5.5",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^0.2.1",
+    "jshint-stylish": "^0.2.0",
+    "karma": "^0.12.14",
+    "karma-browserify": "^0.2.0",
+    "karma-sauce-launcher": "^0.2.8",
+    "karma-chrome-launcher": "^0.1.3",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-safari-launcher": "^0.1.1"
+  },
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start karma-sauce.js --single-run",
+    "run-tests": "./node_modules/karma/bin/karma start karma.js --single-run",
+    "build": "./node_modules/gulp/bin/gulp.js build",
+    "dist": "./node_modules/gulp/bin/gulp.js dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lord2800/idb.git"
+  },
+  "keywords": [
+    "indexeddb"
+  ],
+  "author": "lord2800",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lord2800/idb/issues"
+  },
+  "homepage": "https://github.com/lord2800/idb"
+}
