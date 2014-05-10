@@ -1,8 +1,12 @@
-var gulp = require('gulp'),
-	rename = require('gulp-rename'),
-	browserify = require('gulp-browserify'),
-	uglify = require('gulp-uglify'),
-	jshint = require('gulp-jshint');
+var gulp		= require('gulp'),
+	rename		= require('gulp-rename'),
+	source		= require('vinyl-source-stream'),
+	browserify	= require('browserify'),
+	es6ify		= require('es6ify'),
+	header		= require('gulp-header'),
+	buffer		= require('gulp-buffer'),
+	uglify		= require('gulp-uglify'),
+	jshint		= require('gulp-jshint');
 
 gulp.task('default', ['build']);
 
@@ -14,17 +18,21 @@ gulp.task('lint', function () {
 });
 
 gulp.task('build', ['lint'], function () {
-	gulp.src('src/idb.js')
-		.pipe(browserify({
-			ignoreMissing: true
-		}))
-		.pipe(gulp.dest('dist/'));
+	var copyright = require('fs').readFileSync('copyright.js', 'utf8');
+
+	return browserify()
+			.add(es6ify.runtime).transform(es6ify)
+			.require(require.resolve('./src/idb.js'), { entry: true }).bundle()
+			.pipe(source('idb.js'))
+			.pipe(buffer())
+			.pipe(header(copyright, require('./package.json')))
+			.pipe(gulp.dest('dist/'));
 });
 
 gulp.task('dist', ['build'], function () {
 	gulp.src('dist/idb.js')
 		.pipe(uglify())
-		.pipe(rename({suffix: '.min'}))
+		.pipe(rename({ suffix: '.min' }))
 		.pipe(gulp.dest('dist/'));
 });
 

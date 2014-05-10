@@ -1,17 +1,16 @@
 describe('IndexedDB API', function () {
 	it('should throw if indexedDB is unavailable', function () {
-		var idb = require('../src/idb');
+		var IDBContext = require('../src/idb').default;
 
-		expect(function () { idb.init({}); }).toThrow();
-		expect(function () { idb.init({ indexedDB: {} }); }).not.toThrow();
+		expect(function () { new IDBContext({}); }).toThrow();
+		expect(function () { new IDBContext({ indexedDB: {} }); }).not.toThrow();
 	});
 
 	it('should return a promise when opening a database', function () {
-		var idb = require('../src/idb');
-		var promise = require('bluebird');
+		var IDBContext = require('../src/idb').default;
 
-		idb.init(window);
-		var maybePromise = idb.open('test', [function () {}]);
-		expect(maybePromise instanceof promise).toBe(true);
+		var inst = new IDBContext(window);
+		var maybePromise = inst.open('test', [function () {}]);
+		expect(maybePromise instanceof Promise).toBe(true);
 	});
 });

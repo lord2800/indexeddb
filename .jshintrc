@@ -23,6 +23,7 @@
 	"jquery": true,
 	"smarttabs": true,
 	"multistr": true,
+	"esnext": true,
 	"globals": {
 		"moment": false,
 		"vsprintf": false,

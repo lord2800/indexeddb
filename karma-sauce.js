@@ -10,31 +10,21 @@ module.exports = function(config) {
         };
     }
 
-    [28    ].forEach(browser.bind(null, 'firefox', 'Linux'));
-    [34    ].forEach(browser.bind(null, 'chrome', 'Linux'));
+    [28].forEach(browser.bind(null, 'firefox', 'Linux'));
+    [34].forEach(browser.bind(null, 'chrome', 'Linux'));
+    [11].forEach(browser.bind(null, 'internet explorer', 'Windows 7'));
     // safari tests fail anyway
     // [7         ].forEach(browser.bind(null, 'safari', 'OS X 10.9'));
-    [11    ].forEach(browser.bind(null, 'internet explorer', 'Windows 7'));
+
+    require('./karma.js')(config);
 
     config.set({
-        basePath: '',
-        frameworks: ['jasmine', 'browserify'],
-        files: [ 'tests/**/*.js' ],
-        exclude: [ ],
-        preprocessors: {
-            'tests/**/*.js': ['browserify']
-        },
-        reporters: ['dots', 'saucelabs'],
-        port: 9876,
-        colors: true,
-        logLevel: config.LOG_INFO,
-        autoWatch: true,
+        reporters: [ 'dots', 'saucelabs' ],
         sauceLabs: {
             testName: 'IndexedDB tests',
             recordScreenshots: false
         },
         customLaunchers: customLaunchers,
-        browsers: Object.keys(customLaunchers),
-        singleRun: false
+        browsers: Object.keys(customLaunchers)
     });
 };
